@@ -12,7 +12,7 @@ class ViewController: UIViewController {
 
     let plusButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setImage(#imageLiteral(resourceName: "plus_photo"), for: .normal)
+        button.setImage(#imageLiteral(resourceName: "plus_photo").withRenderingMode(.alwaysOriginal), for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -48,6 +48,16 @@ class ViewController: UIViewController {
         return textField
     }()
 
+    let signUpButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("Sign Up", for: .normal)
+        button.backgroundColor = .blue
+        button.backgroundColor = UIColor(red: 149/255, green: 204/255, blue: 244/255, alpha: 1)
+        button.layer.cornerRadius = 5
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
+        button.setTitleColor(.white, for: .normal)
+        return button
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -63,7 +73,7 @@ class ViewController: UIViewController {
     
     fileprivate func setupInputFields() {
         
-        let stackView = UIStackView(arrangedSubviews: [emailTextField, userNameTextField, passwordTextField])
+        let stackView = UIStackView(arrangedSubviews: [emailTextField, userNameTextField, passwordTextField, signUpButton])
         
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.distribution = .fillEqually

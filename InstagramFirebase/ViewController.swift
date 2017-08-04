@@ -87,7 +87,6 @@ class ViewController: UIViewController {
             stackView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -40),
             stackView.heightAnchor.constraint(equalToConstant: 200)
         ])
-
     }
 
 }

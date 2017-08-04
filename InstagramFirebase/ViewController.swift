@@ -10,16 +10,75 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    let plusButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setImage(#imageLiteral(resourceName: "plus_photo"), for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
+    let emailTextField: UITextField = {
+       let textField = UITextField()
+        textField.placeholder = "Email"
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.backgroundColor = UIColor.init(white: 0, alpha: 0.03)
+        textField.font = UIFont.systemFont(ofSize: 14)
+        textField.borderStyle = .roundedRect
+        return textField
+    }()
+    
+    let userNameTextField: UITextField = {
+        let textField = UITextField()
+        textField.placeholder = "Username"
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.backgroundColor = UIColor.init(white: 0, alpha: 0.03)
+        textField.font = UIFont.systemFont(ofSize: 14)
+        textField.borderStyle = .roundedRect
+        return textField
+    }()
+
+    let passwordTextField: UITextField = {
+        let textField = UITextField()
+        textField.placeholder = "Password"
+        textField.isSecureTextEntry = true
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.backgroundColor = UIColor.init(white: 0, alpha: 0.03)
+        textField.font = UIFont.systemFont(ofSize: 14)
+        textField.borderStyle = .roundedRect
+        return textField
+    }()
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        view.addSubview(plusButton)
+        plusButton.heightAnchor.constraint(equalToConstant: 140).isActive = true
+        plusButton.widthAnchor.constraint(equalToConstant: 140).isActive = true
+        plusButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        plusButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 40).isActive = true
+        
+        
+        setupInputFields()
     }
+    
+    fileprivate func setupInputFields() {
+        
+        let stackView = UIStackView(arrangedSubviews: [emailTextField, userNameTextField, passwordTextField])
+        
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.distribution = .fillEqually
+        stackView.axis = .vertical
+        stackView.spacing = 10
+        view.addSubview(stackView)
+        
+        NSLayoutConstraint.activate([
+            stackView.topAnchor.constraint(equalTo: plusButton.bottomAnchor, constant: 20),
+            stackView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 40),
+            stackView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -40),
+            stackView.heightAnchor.constraint(equalToConstant: 200)
+        ])
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
-
 
 }
 

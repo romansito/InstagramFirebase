@@ -60,8 +60,9 @@ class ViewController: UIViewController {
     
     func handleSignUp() {
         
-        let email = "dummy@mail.com"
-        let password = "123456"
+        guard let email = emailTextField.text, email.characters.count > 0 else { return }
+        guard let username = userNameTextField.text, username.characters.count > 0 else { return }
+        guard let password = passwordTextField.text, password.characters.count > 0 else { return }
         
         Auth.auth().createUser(withEmail: email, password: password) { (user: User?, error: Error?) in
             

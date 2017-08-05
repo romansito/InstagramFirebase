@@ -9,6 +9,25 @@
 import UIKit
 import Firebase
 
+//extension AuthErrorCode {
+//    var errorMessage: String {
+//        switch self {
+//        case .emailAlreadyInUse:
+//            return "The email is already in use with another account"
+//        case .userDisabled:
+//            return "Your account has been disabled. Please contact support."
+//        case .invalidEmail, .invalidSender, .invalidRecipientEmail:
+//            return "Please enter a valid email"
+//        case .networkError:
+//            return "Network error. Please try again."
+//        case .weakPassword:
+//            return "Your password is too weak"
+//        default:
+//            return "Unknown error occurred"
+//        }
+//    }
+//}
+
 class ViewController: UIViewController {
 
     let plusButton: UIButton = {
@@ -66,27 +85,54 @@ class ViewController: UIViewController {
     }()
     
     func handleSignUp() {
-        
         let isFormValid = emailTextField.text?.characters.count ?? 0 > 0 && userNameTextField.text?.characters.count ?? 0 > 0 && passwordTextField.text?.characters.count ?? 0 > 0
         
         if isFormValid {
-            
+            //
         } else {
             signUpButton.isEnabled = false
             showAlerForIncompleteForm()
         }
-
+        
         guard let email = emailTextField.text, email.characters.count > 0 else { return }
         guard let username = userNameTextField.text, username.characters.count > 0 else { return }
         guard let password = passwordTextField.text, password.characters.count > 0 else { return }
         
         Auth.auth().createUser(withEmail: email, password: password) { (user: User?, error: Error?) in
-            
-            if let error = error {
-                print("Failed to created user:", error)
+            if error == nil {
+                guard let uid = user?.uid else {return}
+                let usernameValues = ["username": username]
+                let values = [uid: usernameValues]
+                Database.database().reference().child("users").updateChildValues(values, withCompletionBlock: { (error, reference) in
+                    if let error = error {
+                        print("Failed to save user info into db:", error)
+                        return
+                    }
+                    print("Successfully saved user info to db")
+                })
+                
+                
+                print("Successfully created user:", user?.uid ?? "")
+            } else if let errCode = AuthErrorCode(rawValue: (error!._code)) {
+                switch errCode {
+                case .emailAlreadyInUse:
+                    self.showAlertForDuplicatedEmailAddress()
+                    print("The email is already in use with another account")
+                case .userDisabled:
+                    print("Your account has been disabled. Please contact support.")
+                case .invalidEmail, .invalidSender, .invalidRecipientEmail:
+                    self.showAlertForInvalidEmailAddress()
+                    print("Please enter a valid email")
+                case .networkError:
+                    print("Network error. Please try again.")
+                case .weakPassword:
+                    self.showAlertForInvalidPassword()
+                    print("Your password is too weak")
+                default:
+                    print("Unknown error occurred")
+                }
                 return
             }
-            print("Successfully created user:", user?.uid ?? "")
         }
     }
     
@@ -102,17 +148,31 @@ class ViewController: UIViewController {
         } else {
             signUpButton.backgroundColor = UIColor.rgb(red: 149, green: 204, blue: 244, alpha: 1)
         }
-
     }
     
     func showAlertForInvalidPassword() {
-        if (passwordTextField.text?.characters.count)! < 6 {
-            print("PASSWORD IS LESS THEN 6 CHARACTERS")
-        }
+        let alertViewController = UIAlertController(title: "Almost there", message: "Password must be at least 6 characters long", preferredStyle: .alert)
+        let okAlert = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alertViewController.addAction(okAlert)
+        self.present(alertViewController, animated: true, completion: nil)
     }
     
     fileprivate func showAlerForIncompleteForm() {
         let alertViewController = UIAlertController(title: "Almost there", message: "Please complete the form", preferredStyle: .alert)
+        let okAlert = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alertViewController.addAction(okAlert)
+        self.present(alertViewController, animated: true, completion: nil)
+    }
+    
+    fileprivate func showAlertForInvalidEmailAddress() {
+        let alertViewController = UIAlertController(title: "Invalid Email Address", message: "Please enter a valid email address", preferredStyle: .alert)
+        let okAlert = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alertViewController.addAction(okAlert)
+        self.present(alertViewController, animated: true, completion: nil)
+    }
+    
+    fileprivate func showAlertForDuplicatedEmailAddress() {
+        let alertViewController = UIAlertController(title: "Invalid Email Address", message: "It looks like this email address is already been used. Please sign in", preferredStyle: .alert)
         let okAlert = UIAlertAction(title: "OK", style: .default, handler: nil)
         alertViewController.addAction(okAlert)
         self.present(alertViewController, animated: true, completion: nil)
@@ -175,4 +235,6 @@ extension UIView {
         }
     }
 }
+
+
 

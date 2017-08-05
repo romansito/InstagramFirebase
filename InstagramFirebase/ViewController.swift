@@ -9,26 +9,7 @@
 import UIKit
 import Firebase
 
-//extension AuthErrorCode {
-//    var errorMessage: String {
-//        switch self {
-//        case .emailAlreadyInUse:
-//            return "The email is already in use with another account"
-//        case .userDisabled:
-//            return "Your account has been disabled. Please contact support."
-//        case .invalidEmail, .invalidSender, .invalidRecipientEmail:
-//            return "Please enter a valid email"
-//        case .networkError:
-//            return "Network error. Please try again."
-//        case .weakPassword:
-//            return "Your password is too weak"
-//        default:
-//            return "Unknown error occurred"
-//        }
-//    }
-//}
-
-class ViewController: UIViewController {
+class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     let plusButton: UIButton = {
         let button = UIButton(type: .system)
@@ -39,7 +20,22 @@ class ViewController: UIViewController {
     
     func handleAddPlusPhoto() {
         let imagePickerController = UIImagePickerController()
+        imagePickerController.delegate = self
+        imagePickerController.allowsEditing = true
         present(imagePickerController, animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        
+        if let editedImage = info["UIImagePickerControllerEditedImage"] as? UIImage {
+            plusButton.setImage(editedImage.withRenderingMode(.alwaysOriginal), for: .normal)
+        } else if let originalImage = info["UIImagePickerControllerOriginalImage"] as? UIImage {
+            plusButton.setImage(originalImage.withRenderingMode(.alwaysOriginal), for: .normal)
+        }
+        plusButton.layer.cornerRadius = plusButton.frame.width/2
+        plusButton.layer.masksToBounds = true
+        dismiss(animated: true, completion: nil)
+
     }
     
     let emailTextField: UITextField = {

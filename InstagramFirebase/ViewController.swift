@@ -100,6 +100,18 @@ class ViewController: UIViewController {
         
         Auth.auth().createUser(withEmail: email, password: password) { (user: User?, error: Error?) in
             if error == nil {
+                guard let uid = user?.uid else {return}
+                let usernameValues = ["username": username]
+                let values = [uid: usernameValues]
+                Database.database().reference().child("users").updateChildValues(values, withCompletionBlock: { (error, reference) in
+                    if let error = error {
+                        print("Failed to save user info into db:", error)
+                        return
+                    }
+                    print("Successfully saved user info to db")
+                })
+                
+                
                 print("Successfully created user:", user?.uid ?? "")
             } else if let errCode = AuthErrorCode(rawValue: (error!._code)) {
                 switch errCode {

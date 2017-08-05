@@ -23,24 +23,10 @@ class ViewController: UIViewController {
         textField.backgroundColor = UIColor.init(white: 0, alpha: 0.03)
         textField.font = UIFont.systemFont(ofSize: 14)
         textField.borderStyle = .roundedRect
-        
         textField.addTarget(self, action: #selector(handleTextInputChange), for: .editingChanged)
         
         return textField
     }()
-    
-    func handleTextInputChange() {
-        let isFormValid = emailTextField.text?.characters.count ?? 0 > 0 && userNameTextField.text?.characters.count ?? 0 > 0 && passwordTextField.text?.characters.count ?? 0 > 0
-        
-        if isFormValid {
-            signUpButton.isEnabled = true
-            signUpButton.backgroundColor = UIColor.rgb(red: 17, green: 154, blue: 237, alpha: 1)
-        } else {
-            signUpButton.isEnabled = false
-            signUpButton.backgroundColor = UIColor.rgb(red: 149, green: 204, blue: 244, alpha: 1)
-        }
-        
-    }
     
     let userNameTextField: UITextField = {
         let textField = UITextField()
@@ -80,7 +66,6 @@ class ViewController: UIViewController {
     }()
     
     func handleSignUp() {
-        
         guard let email = emailTextField.text, email.characters.count > 0 else { return }
         guard let username = userNameTextField.text, username.characters.count > 0 else { return }
         guard let password = passwordTextField.text, password.characters.count > 0 else { return }
@@ -96,11 +81,32 @@ class ViewController: UIViewController {
         }
     }
     
+    func handleTextInputChange() {
+        let isFormValid = emailTextField.text?.characters.count ?? 0 > 0 && userNameTextField.text?.characters.count ?? 0 > 0 && passwordTextField.text?.characters.count ?? 0 > 0
+        
+        if isFormValid {
+            signUpButton.isEnabled = true
+            signUpButton.backgroundColor = UIColor.rgb(red: 17, green: 154, blue: 237, alpha: 1)
+        } else {
+            signUpButton.isEnabled = false
+            signUpButton.backgroundColor = UIColor.rgb(red: 149, green: 204, blue: 244, alpha: 1)
+        }
+        
+    }
+    
+    func showAlertForInvalidPassword() {
+        if (passwordTextField.text?.characters.count)! < 6 {
+            print("PASSWORD IS LESS THEN 6 CHARACTERS")
+        }
+    }
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setupPlusButton()
         setupInputFields()
+        showAlertForInvalidPassword()
     }
     
     fileprivate func setupPlusButton() {

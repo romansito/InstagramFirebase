@@ -9,6 +9,25 @@
 import UIKit
 import Firebase
 
+extension AuthErrorCode {
+    var errorMessage: String {
+        switch self {
+        case .emailAlreadyInUse:
+            return "The email is already in use with another account"
+        case .userDisabled:
+            return "Your account has been disabled. Please contact support."
+        case .invalidEmail, .invalidSender, .invalidRecipientEmail:
+            return "Please enter a valid email"
+        case .networkError:
+            return "Network error. Please try again."
+        case .weakPassword:
+            return "Your password is too weak"
+        default:
+            return "Unknown error occurred"
+        }
+    }
+}
+
 class ViewController: UIViewController {
 
     let plusButton: UIButton = {
@@ -75,15 +94,28 @@ class ViewController: UIViewController {
             signUpButton.isEnabled = false
             showAlerForIncompleteForm()
         }
-
+        
         guard let email = emailTextField.text, email.characters.count > 0 else { return }
         guard let username = userNameTextField.text, username.characters.count > 0 else { return }
         guard let password = passwordTextField.text, password.characters.count > 0 else { return }
         
         Auth.auth().createUser(withEmail: email, password: password) { (user: User?, error: Error?) in
             
-            if let error = error {
-                print("Failed to created user:", error)
+            if let errCode = AuthErrorCode(rawValue: error!._code) {
+                switch errCode {
+                case .emailAlreadyInUse:
+                    print("The email is already in use with another account")
+                case .userDisabled:
+                    print("Your account has been disabled. Please contact support.")
+                case .invalidEmail, .invalidSender, .invalidRecipientEmail:
+                    print("Please enter a valid email")
+                case .networkError:
+                    print("Network error. Please try again.")
+                case .weakPassword:
+                    print("Your password is too weak")
+                default:
+                    print("Unknown error occurred")
+                }
                 return
             }
             print("Successfully created user:", user?.uid ?? "")
@@ -102,7 +134,6 @@ class ViewController: UIViewController {
         } else {
             signUpButton.backgroundColor = UIColor.rgb(red: 149, green: 204, blue: 244, alpha: 1)
         }
-
     }
     
     func showAlertForInvalidPassword() {
@@ -175,4 +206,6 @@ extension UIView {
         }
     }
 }
+
+
 

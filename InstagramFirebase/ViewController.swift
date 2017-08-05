@@ -66,6 +66,16 @@ class ViewController: UIViewController {
     }()
     
     func handleSignUp() {
+        
+        let isFormValid = emailTextField.text?.characters.count ?? 0 > 0 && userNameTextField.text?.characters.count ?? 0 > 0 && passwordTextField.text?.characters.count ?? 0 > 0
+        
+        if isFormValid {
+            
+        } else {
+            signUpButton.isEnabled = false
+            showAlerForIncompleteForm()
+        }
+
         guard let email = emailTextField.text, email.characters.count > 0 else { return }
         guard let username = userNameTextField.text, username.characters.count > 0 else { return }
         guard let password = passwordTextField.text, password.characters.count > 0 else { return }
@@ -76,28 +86,36 @@ class ViewController: UIViewController {
                 print("Failed to created user:", error)
                 return
             }
-            
             print("Successfully created user:", user?.uid ?? "")
         }
     }
     
     func handleTextInputChange() {
+        
+        signUpButton.isEnabled = true
+        
         let isFormValid = emailTextField.text?.characters.count ?? 0 > 0 && userNameTextField.text?.characters.count ?? 0 > 0 && passwordTextField.text?.characters.count ?? 0 > 0
         
         if isFormValid {
             signUpButton.isEnabled = true
             signUpButton.backgroundColor = UIColor.rgb(red: 17, green: 154, blue: 237, alpha: 1)
         } else {
-            signUpButton.isEnabled = false
             signUpButton.backgroundColor = UIColor.rgb(red: 149, green: 204, blue: 244, alpha: 1)
         }
-        
+
     }
     
     func showAlertForInvalidPassword() {
         if (passwordTextField.text?.characters.count)! < 6 {
             print("PASSWORD IS LESS THEN 6 CHARACTERS")
         }
+    }
+    
+    fileprivate func showAlerForIncompleteForm() {
+        let alertViewController = UIAlertController(title: "Almost there", message: "Please complete the form", preferredStyle: .alert)
+        let okAlert = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alertViewController.addAction(okAlert)
+        self.present(alertViewController, animated: true, completion: nil)
     }
 
     
@@ -106,7 +124,6 @@ class ViewController: UIViewController {
         
         setupPlusButton()
         setupInputFields()
-        showAlertForInvalidPassword()
     }
     
     fileprivate func setupPlusButton() {

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class ViewController: UIViewController {
 
@@ -51,18 +52,41 @@ class ViewController: UIViewController {
         button.layer.cornerRadius = 5
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
         button.setTitleColor(.white, for: .normal)
+        
+        button.addTarget(self, action: #selector(handleSignUp), for: .touchUpInside)
+        
         return button
     }()
     
+    func handleSignUp() {
+        
+        let email = "dummy@mail.com"
+        let password = "123456"
+        
+        Auth.auth().createUser(withEmail: email, password: password) { (user: User?, error: Error?) in
+            
+            if let error = error {
+                print("Failed to created user:", error)
+                return
+            }
+            
+            print("Successfully created user:", user?.uid ?? "")
+            
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        setupPlusButton()
+        setupInputFields()
+    }
+    
+    fileprivate func setupPlusButton() {
         view.addSubview(plusButton)
         
         plusButton.anchor(top: view.topAnchor, left: nil, bottom: nil, right: nil, paddingTop: 40, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 140, height: 140)
         plusButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        
-        
-        setupInputFields()
     }
     
     fileprivate func setupInputFields() {

@@ -69,13 +69,13 @@
 			children = (
 				30825F811F353AAB00D4D8AC /* Utilities */,
 				301032B21F3272D8002A632A /* AppDelegate.swift */,
+				305DD9321F38F83A004A98E3 /* MainTabBarController.swift */,
 				301032B41F3272D8002A632A /* ViewController.swift */,
 				301032B61F3272D8002A632A /* Main.storyboard */,
 				301032B91F3272D8002A632A /* Assets.xcassets */,
 				301032BB1F3272D8002A632A /* LaunchScreen.storyboard */,
 				301032BE1F3272D8002A632A /* Info.plist */,
 				30825F841F35424900D4D8AC /* GoogleService-Info.plist */,
-				305DD9321F38F83A004A98E3 /* MainTabBarController.swift */,
 			);
 			path = InstagramFirebase;
 			sourceTree = "<group>";

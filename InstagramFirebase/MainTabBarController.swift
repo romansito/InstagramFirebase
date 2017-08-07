@@ -13,6 +13,16 @@ class MainTabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .yellow
-    }
+        
+        let redVC = UIViewController()
+        redVC.view.backgroundColor = .red
     
+        let navigationController = UINavigationController(rootViewController: redVC)
+        
+       
+        
+        
+        
+        viewControllers = [navigationController]
+    }
 }

@@ -14,15 +14,15 @@ class MainTabBarController: UITabBarController {
         super.viewDidLoad()
         view.backgroundColor = .yellow
         
-        let redVC = UIViewController()
-        redVC.view.backgroundColor = .red
-    
-        let navigationController = UINavigationController(rootViewController: redVC)
+        let layout = UICollectionViewFlowLayout()
+        let userProfileController = UserProfileController(collectionViewLayout: layout)
+        let navigationController = UINavigationController(rootViewController: userProfileController)
         
-       
+        navigationController.tabBarItem.selectedImage = #imageLiteral(resourceName: "profile_selected")
+        navigationController.tabBarItem.image = #imageLiteral(resourceName: "profile_unselected")
         
+        tabBar.tintColor = .black
         
-        
-        viewControllers = [navigationController]
+        viewControllers = [navigationController, UIViewController()]
     }
 }

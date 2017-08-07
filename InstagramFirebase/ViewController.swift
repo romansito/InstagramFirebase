@@ -113,18 +113,19 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                     }
                     guard let profileImageURL = metadata?.downloadURL()?.absoluteString else {return}
                     print("Sucessfully uploaded profile image:", profileImageURL)
+                    
+                    guard let uid = user?.uid else {return}
+                    let dictionaryValues = ["username": username, "profileImageURL": profileImageURL]
+                    let values = [uid: dictionaryValues]
+                    Database.database().reference().child("users").updateChildValues(values, withCompletionBlock: { (error, reference) in
+                        if let error = error {
+                            print("Failed to save user info into db:", error)
+                            return
+                        }
+                        print("Successfully saved user info to db")
+                    })
+                    print("Successfully created user:", user?.uid ?? "")
                 })
-//                guard let uid = user?.uid else {return}
-//                let usernameValues = ["username": username]
-//                let values = [uid: usernameValues]
-//                Database.database().reference().child("users").updateChildValues(values, withCompletionBlock: { (error, reference) in
-//                    if let error = error {
-//                        print("Failed to save user info into db:", error)
-//                        return
-//                    }
-//                    print("Successfully saved user info to db")
-//                })
-//                print("Successfully created user:", user?.uid ?? "")
             } else if let errCode = AuthErrorCode(rawValue: (error!._code)) {
                 switch errCode {
                 case .emailAlreadyInUse:

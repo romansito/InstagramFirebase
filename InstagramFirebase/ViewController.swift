@@ -35,7 +35,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         plusButton.layer.cornerRadius = plusButton.frame.width/2
         plusButton.layer.masksToBounds = true
         dismiss(animated: true, completion: nil)
-
     }
     
     let emailTextField: UITextField = {

@@ -99,21 +99,33 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         guard let username = userNameTextField.text, username.characters.count > 0 else { return }
         guard let password = passwordTextField.text, password.characters.count > 0 else { return }
         
-        Auth.auth().createUser(withEmail: email, password: password) { (user: User?, error: Error?) in
+        Auth.auth().createUser(withEmail: email, password: password) { (user: Firebase.User?, error: Error?) in
             if error == nil {
-                guard let uid = user?.uid else {return}
-                let usernameValues = ["username": username]
-                let values = [uid: usernameValues]
-                Database.database().reference().child("users").updateChildValues(values, withCompletionBlock: { (error, reference) in
+                guard let image = self.plusButton.imageView?.image else {return}
+                guard let uploadData = UIImageJPEGRepresentation(image, 0.3) else {return}
+                
+                let filename = NSUUID().uuidString
+                
+                Storage.storage().reference().child("profile_images").child(filename).putData(uploadData, metadata: nil, completion: { (metadata, error) in
                     if let error = error {
-                        print("Failed to save user info into db:", error)
+                        print("Filaed to upload profile image", error)
                         return
                     }
-                    print("Successfully saved user info to db")
+                    guard let profileImageURL = metadata?.downloadURL()?.absoluteString else {return}
+                    print("Sucessfully uploaded profile image:", profileImageURL)
+                    
+                    guard let uid = user?.uid else {return}
+                    let dictionaryValues = ["username": username, "profileImageURL": profileImageURL]
+                    let values = [uid: dictionaryValues]
+                    Database.database().reference().child("users").updateChildValues(values, withCompletionBlock: { (error, reference) in
+                        if let error = error {
+                            print("Failed to save user info into db:", error)
+                            return
+                        }
+                        print("Successfully saved user info to db")
+                    })
+                    print("Successfully created user:", user?.uid ?? "")
                 })
-                
-                
-                print("Successfully created user:", user?.uid ?? "")
             } else if let errCode = AuthErrorCode(rawValue: (error!._code)) {
                 switch errCode {
                 case .emailAlreadyInUse:

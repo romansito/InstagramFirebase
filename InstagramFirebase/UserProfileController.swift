@@ -14,14 +14,13 @@ class UserProfileController: UICollectionViewController, UICollectionViewDelegat
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView?.backgroundColor = .white
-        navigationItem.title = Auth.auth().currentUser?.uid
+//        navigationItem.title = Auth.auth().currentUser?.uid
         fetchUser()
-        collectionView?.register(UICollectionViewCell.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "headerID")
+        collectionView?.register(UserProfileHeader.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "headerID")
     }
     
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "headerID", for: indexPath)
-        header.backgroundColor = .green
+        let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "headerID", for: indexPath) as! UserProfileHeader
         return header
     }
     
@@ -29,17 +28,34 @@ class UserProfileController: UICollectionViewController, UICollectionViewDelegat
         return CGSize(width: view.frame.width, height: 200)
     }
     
+    var user: User?
     fileprivate func fetchUser() {
+        guard let uid = Auth.auth().currentUser?.uid else { return }
         
-        guard let uid = Auth.auth().currentUser?.uid else {return}
-        
-        Database.database().reference().child("users").child(uid).observe(.value, with: { (snapshot) in
-            guard let dictionary = snapshot.value as? [String : Any] else {return}
-            let username = dictionary["username"] as? String
-            self.navigationItem.title = username
+        Database.database().reference().child("users").child(uid).observeSingleEvent(of: .value, with: { (snapshot) in
             print(snapshot.value ?? "")
-        }) { (error) in
-            print("failured to fetch user")
+            
+            guard let dictionary = snapshot.value as? [String: Any] else { return }
+            
+            self.user = User(dictionary: dictionary)
+            self.navigationItem.title = self.user?.username
+            if self.user?.profileImageUrl != nil {
+                print("There is an IMAGE HERE:", self.user?.profileImageUrl)
+            }
+            
+            self.collectionView?.reloadData()
+        }) { (err) in
+            print("Failed to fetch user:", err)
         }
+    }
+}
+
+struct User {
+    let username: String
+    let profileImageUrl: String
+    
+    init(dictionary: [String: Any]) {
+        self.username = dictionary["username"] as? String ?? ""
+        self.profileImageUrl = dictionary["profileImageURL"]  as? String ?? ""
     }
 }

@@ -99,7 +99,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         guard let username = userNameTextField.text, username.characters.count > 0 else { return }
         guard let password = passwordTextField.text, password.characters.count > 0 else { return }
         
-        Auth.auth().createUser(withEmail: email, password: password) { (user: User?, error: Error?) in
+        Auth.auth().createUser(withEmail: email, password: password) { (user: Firebase.User?, error: Error?) in
             if error == nil {
                 guard let image = self.plusButton.imageView?.image else {return}
                 guard let uploadData = UIImageJPEGRepresentation(image, 0.3) else {return}

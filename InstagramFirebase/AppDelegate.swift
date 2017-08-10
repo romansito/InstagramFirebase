@@ -19,6 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   
         FirebaseApp.configure()
         window = UIWindow()
+        window?.backgroundColor = .white
         window?.rootViewController = MainTabBarController()
         
         return true

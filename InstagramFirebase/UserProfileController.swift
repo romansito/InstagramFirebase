@@ -6,6 +6,7 @@
 //  Copyright © 2017 Roman Salazar Lopez. All rights reserved.
 //
 
+
 import UIKit
 import Firebase
 
@@ -13,14 +14,24 @@ class UserProfileController: UICollectionViewController, UICollectionViewDelegat
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         collectionView?.backgroundColor = .white
-//        navigationItem.title = Auth.auth().currentUser?.uid
+        
+        navigationItem.title = Auth.auth().currentUser?.uid
+        
         fetchUser()
-        collectionView?.register(UserProfileHeader.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "headerID")
+        
+        collectionView?.register(UserProfileHeader.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "headerId")
     }
     
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "headerID", for: indexPath) as! UserProfileHeader
+        let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "headerId", for: indexPath) as! UserProfileHeader
+        
+        header.user = self.user
+        
+        //not correct
+        //header.addSubview(UIImageView())
+        
         return header
     }
     
@@ -39,11 +50,9 @@ class UserProfileController: UICollectionViewController, UICollectionViewDelegat
             
             self.user = User(dictionary: dictionary)
             self.navigationItem.title = self.user?.username
-            if self.user?.profileImageUrl != nil {
-                print("There is an IMAGE HERE:", self.user?.profileImageUrl)
-            }
             
             self.collectionView?.reloadData()
+            
         }) { (err) in
             print("Failed to fetch user:", err)
         }
@@ -56,6 +65,7 @@ struct User {
     
     init(dictionary: [String: Any]) {
         self.username = dictionary["username"] as? String ?? ""
-        self.profileImageUrl = dictionary["profileImageURL"]  as? String ?? ""
+        self.profileImageUrl = dictionary["profileImageUrl"]  as? String ?? ""
     }
 }
+

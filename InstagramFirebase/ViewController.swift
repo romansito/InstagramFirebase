@@ -10,7 +10,7 @@ import UIKit
 import Firebase
 
 class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-
+    
     let plusButton: UIButton = {
         let button = UIButton(type: .system)
         button.setImage(#imageLiteral(resourceName: "plus_photo").withRenderingMode(.alwaysOriginal), for: .normal)
@@ -38,7 +38,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     
     let emailTextField: UITextField = {
-       let textField = UITextField()
+        let textField = UITextField()
         textField.placeholder = "Email"
         textField.backgroundColor = UIColor.init(white: 0, alpha: 0.03)
         textField.font = UIFont.systemFont(ofSize: 14)
@@ -55,10 +55,10 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         textField.font = UIFont.systemFont(ofSize: 14)
         textField.borderStyle = .roundedRect
         textField.addTarget(self, action: #selector(handleTextInputChange), for: .editingChanged)
-
+        
         return textField
     }()
-
+    
     let passwordTextField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "Password"
@@ -67,10 +67,10 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         textField.font = UIFont.systemFont(ofSize: 14)
         textField.borderStyle = .roundedRect
         textField.addTarget(self, action: #selector(handleTextInputChange), for: .editingChanged)
-
+        
         return textField
     }()
-
+    
     let signUpButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Sign Up", for: .normal)
@@ -111,11 +111,11 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                         print("Filaed to upload profile image", error)
                         return
                     }
-                    guard let profileImageURL = metadata?.downloadURL()?.absoluteString else {return}
-                    print("Sucessfully uploaded profile image:", profileImageURL)
+                    guard let profileImageUrl = metadata?.downloadURL()?.absoluteString else {return}
+                    print("Sucessfully uploaded profile image:", profileImageUrl)
                     
                     guard let uid = user?.uid else {return}
-                    let dictionaryValues = ["username": username, "profileImageURL": profileImageURL]
+                    let dictionaryValues = ["username": username, "profileImageUrl": profileImageUrl]
                     let values = [uid: dictionaryValues]
                     Database.database().reference().child("users").updateChildValues(values, withCompletionBlock: { (error, reference) in
                         if let error = error {
@@ -190,7 +190,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         alertViewController.addAction(okAlert)
         self.present(alertViewController, animated: true, completion: nil)
     }
-
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -248,6 +248,8 @@ extension UIView {
         }
     }
 }
+
+
 
 
 

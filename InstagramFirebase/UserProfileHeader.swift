@@ -24,6 +24,30 @@ class UserProfileHeader: UICollectionViewCell {
         return iv
     }()
     
+    let postLabel: UILabel = {
+        let label = UILabel()
+        label.text = "11\nposts"
+        label.textAlignment = .center
+        label.numberOfLines = 0
+        return label
+    }()
+    
+    let followersLabel: UILabel = {
+        let label = UILabel()
+        label.text = "11\nfollowers"
+        label.textAlignment = .center
+        label.numberOfLines = 0
+        return label
+    }()
+
+    let followingLabel: UILabel = {
+        let label = UILabel()
+        label.text = "11\nfollowings"
+        label.textAlignment = .center
+        label.numberOfLines = 0
+        return label
+    }()
+
     let gridButton: UIButton = {
         let button = UIButton(type: .system)
         button.setImage(#imageLiteral(resourceName: "grid"), for: .normal)
@@ -64,6 +88,16 @@ class UserProfileHeader: UICollectionViewCell {
         
         addSubview(usernameLabel)
         usernameLabel.anchor(top: profileImageView.bottomAnchor, left: leftAnchor, bottom: gridButton.topAnchor, right: rightAnchor, paddingTop: 4, paddingLeft: 12, paddingBottom: 0, paddingRight: 12, width: 0, height: 0)
+        
+        setupStatsView()
+    }
+    
+    fileprivate func setupStatsView() {
+        let stackView = UIStackView(arrangedSubviews: [postLabel, followersLabel, followingLabel])
+        stackView.distribution = .fillEqually
+        addSubview(stackView)
+        
+        stackView.anchor(top: topAnchor, left: profileImageView.rightAnchor, bottom: nil, right: rightAnchor, paddingTop: 12, paddingLeft: 12, paddingBottom: 0, paddingRight: 12, width: 0, height: 50)
     }
     
     fileprivate func setupBottomToolbar() {

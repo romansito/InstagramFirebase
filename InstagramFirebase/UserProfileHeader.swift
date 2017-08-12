@@ -26,7 +26,11 @@ class UserProfileHeader: UICollectionViewCell {
     
     let postLabel: UILabel = {
         let label = UILabel()
-        label.text = "11\nposts"
+        
+        let attributedText = NSMutableAttributedString(string: "11\n", attributes: [NSFontAttributeName: UIFont.boldSystemFont(ofSize: 14)])
+        attributedText.append(NSAttributedString(string: "posts", attributes: [NSForegroundColorAttributeName: UIColor.lightGray, NSFontAttributeName: UIFont.systemFont(ofSize: 14)]))
+        
+        label.attributedText = attributedText
         label.textAlignment = .center
         label.numberOfLines = 0
         return label
@@ -34,7 +38,10 @@ class UserProfileHeader: UICollectionViewCell {
     
     let followersLabel: UILabel = {
         let label = UILabel()
-        label.text = "11\nfollowers"
+        let attributedText = NSMutableAttributedString(string: "11\n", attributes: [NSFontAttributeName: UIFont.boldSystemFont(ofSize: 14)])
+        attributedText.append(NSAttributedString(string: "followers", attributes: [NSForegroundColorAttributeName: UIColor.lightGray, NSFontAttributeName: UIFont.systemFont(ofSize: 14)]))
+        
+        label.attributedText = attributedText
         label.textAlignment = .center
         label.numberOfLines = 0
         return label
@@ -42,10 +49,24 @@ class UserProfileHeader: UICollectionViewCell {
 
     let followingLabel: UILabel = {
         let label = UILabel()
-        label.text = "11\nfollowings"
+        let attributedText = NSMutableAttributedString(string: "11\n", attributes: [NSFontAttributeName: UIFont.boldSystemFont(ofSize: 14)])
+        attributedText.append(NSAttributedString(string: "following", attributes: [NSForegroundColorAttributeName: UIColor.lightGray, NSFontAttributeName: UIFont.systemFont(ofSize: 14)]))
+        
+        label.attributedText = attributedText
         label.textAlignment = .center
         label.numberOfLines = 0
         return label
+    }()
+    
+    let editButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("Edit Button", for: .normal)
+        button.setTitleColor(.black, for: .normal)
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
+        button.layer.borderColor = UIColor.lightGray.cgColor
+        button.layer.borderWidth = 1
+        button.layer.cornerRadius = 4
+        return button
     }()
 
     let gridButton: UIButton = {
@@ -90,6 +111,9 @@ class UserProfileHeader: UICollectionViewCell {
         usernameLabel.anchor(top: profileImageView.bottomAnchor, left: leftAnchor, bottom: gridButton.topAnchor, right: rightAnchor, paddingTop: 4, paddingLeft: 12, paddingBottom: 0, paddingRight: 12, width: 0, height: 0)
         
         setupStatsView()
+        
+        addSubview(editButton)
+        editButton.anchor(top: postLabel.bottomAnchor, left: postLabel.leftAnchor, bottom: nil, right: followingLabel.rightAnchor, paddingTop: 8, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 34)
     }
     
     fileprivate func setupStatsView() {
@@ -101,12 +125,26 @@ class UserProfileHeader: UICollectionViewCell {
     }
     
     fileprivate func setupBottomToolbar() {
+        
+        let topViewDevider = UIView()
+        topViewDevider.backgroundColor = UIColor.lightGray
+        
+        let bottomViewDevider = UIView()
+        topViewDevider.backgroundColor = UIColor.lightGray
+
+        
+        
         let stackView = UIStackView(arrangedSubviews: [gridButton, listButton, bookmarkButton])
         stackView.axis = .horizontal
         stackView.distribution = .fillEqually
+        
+        addSubview(topViewDevider)
         addSubview(stackView)
+        addSubview(bottomViewDevider)
         
         stackView.anchor(top: nil, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 50)
+        topViewDevider.anchor(top: stackView.topAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0.5)
+        bottomViewDevider.anchor(top: stackView.bottomAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0.5)
         
     }
     

@@ -131,8 +131,6 @@ class UserProfileHeader: UICollectionViewCell {
         
         let bottomViewDevider = UIView()
         topViewDevider.backgroundColor = UIColor.lightGray
-
-        
         
         let stackView = UIStackView(arrangedSubviews: [gridButton, listButton, bookmarkButton])
         stackView.axis = .horizontal

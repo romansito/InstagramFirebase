@@ -130,15 +130,15 @@ class UserProfileHeader: UICollectionViewCell {
         topViewDevider.backgroundColor = UIColor.lightGray
         
         let bottomViewDevider = UIView()
-        topViewDevider.backgroundColor = UIColor.lightGray
+        bottomViewDevider.backgroundColor = UIColor.lightGray
         
         let stackView = UIStackView(arrangedSubviews: [gridButton, listButton, bookmarkButton])
         stackView.axis = .horizontal
         stackView.distribution = .fillEqually
         
         addSubview(topViewDevider)
-        addSubview(stackView)
         addSubview(bottomViewDevider)
+        addSubview(stackView)
         
         stackView.anchor(top: nil, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 50)
         topViewDevider.anchor(top: stackView.topAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0.5)

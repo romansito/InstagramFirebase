@@ -18,7 +18,8 @@ class MainTabBarController: UITabBarController {
             // create new log in page and present it here
             DispatchQueue.main.async {
                 let loginController = LoginController()
-                self.present(loginController, animated: true, completion: nil)
+                let navigationController = UINavigationController(rootViewController: loginController)
+                self.present(navigationController, animated: true, completion: nil)
             }
             return
         }

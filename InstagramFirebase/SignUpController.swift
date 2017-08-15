@@ -190,8 +190,7 @@ class SignUpController: UIViewController, UIImagePickerControllerDelegate, UINav
         alertViewController.addAction(okAlert)
         self.present(alertViewController, animated: true, completion: nil)
     }
-    
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white

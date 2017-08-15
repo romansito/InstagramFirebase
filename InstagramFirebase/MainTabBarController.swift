@@ -16,8 +16,12 @@ class MainTabBarController: UITabBarController {
         
         if Auth.auth().currentUser == nil {
             // create new log in page and present it here
+            DispatchQueue.main.async {
+                let loginController = LoginController()
+                self.present(loginController, animated: true, completion: nil)
+            }
+            return
         }
-        
         
         let layout = UICollectionViewFlowLayout()
         let userProfileController = UserProfileController(collectionViewLayout: layout)

@@ -9,12 +9,12 @@
 import UIKit
 import Firebase
 
-class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class SignUpController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     let plusButton: UIButton = {
         let button = UIButton(type: .system)
         button.setImage(#imageLiteral(resourceName: "plus_photo").withRenderingMode(.alwaysOriginal), for: .normal)
-        button.addTarget(self, action: #selector(ViewController.handleAddPlusPhoto), for: .touchUpInside)
+        button.addTarget(self, action: #selector(SignUpController.handleAddPlusPhoto), for: .touchUpInside)
         return button
     }()
     

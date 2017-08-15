@@ -36,7 +36,14 @@ class UserProfileController: UICollectionViewController, UICollectionViewDelegat
     func handleLogout() {
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         alertController.addAction(UIAlertAction(title: "Log Out", style: .destructive, handler: { (_) in
-            print("perform action")
+            do {
+                try Auth.auth().signOut()
+                // we now need to present some kind of log in controller
+                
+            } catch let signOutError {
+                print("Failed to signout:", signOutError)
+            }
+            
         }))
         alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         

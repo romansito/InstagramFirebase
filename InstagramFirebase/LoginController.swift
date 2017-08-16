@@ -28,7 +28,7 @@ class LoginController: UIViewController {
         textField.backgroundColor = UIColor.init(white: 0, alpha: 0.03)
         textField.font = UIFont.systemFont(ofSize: 14)
         textField.borderStyle = .roundedRect
-//        textField.addTarget(self, action: #selector(handleTextInputChange), for: .editingChanged)
+        textField.addTarget(self, action: #selector(handleTextInputChange), for: .editingChanged)
         
         return textField
     }()
@@ -40,7 +40,7 @@ class LoginController: UIViewController {
         textField.backgroundColor = UIColor.init(white: 0, alpha: 0.03)
         textField.font = UIFont.systemFont(ofSize: 14)
         textField.borderStyle = .roundedRect
-//        textField.addTarget(self, action: #selector(handleTextInputChange), for: .editingChanged)
+        textField.addTarget(self, action: #selector(handleTextInputChange), for: .editingChanged)
         
         return textField
     }()
@@ -73,6 +73,21 @@ class LoginController: UIViewController {
         let signupController = SignUpController()
         navigationController?.pushViewController(signupController, animated: true)
     }
+    
+    func handleTextInputChange() {
+        
+        loginButton.isEnabled = true
+        
+        let isFormValid = emailTextField.text?.characters.count ?? 0 > 0 && passwordTextField.text?.characters.count ?? 0 > 0
+        
+        if isFormValid {
+            loginButton.isEnabled = true
+            loginButton.backgroundColor = UIColor.rgb(red: 17, green: 154, blue: 237, alpha: 1)
+        } else {
+            loginButton.backgroundColor = UIColor.rgb(red: 149, green: 204, blue: 244, alpha: 1)
+        }
+    }
+
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent

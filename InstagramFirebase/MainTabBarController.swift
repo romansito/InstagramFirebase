@@ -29,14 +29,22 @@ class MainTabBarController: UITabBarController {
     
     func setupViewControllers() {
         let layout = UICollectionViewFlowLayout()
-        let userProfileController = UserProfileController(collectionViewLayout: layout)
-        let navigationController = UINavigationController(rootViewController: userProfileController)
         
-        navigationController.tabBarItem.selectedImage = #imageLiteral(resourceName: "profile_selected")
-        navigationController.tabBarItem.image = #imageLiteral(resourceName: "profile_unselected")
+        //Home
+        let homeController = UIViewController()
+        let homeNavigationController = UINavigationController(rootViewController: homeController)
+        homeNavigationController.tabBarItem.image = #imageLiteral(resourceName: "home_unselected")
+        homeNavigationController.tabBarItem.selectedImage = #imageLiteral(resourceName: "home_selected")
+        
+        //Profile
+        let userProfileController = UserProfileController(collectionViewLayout: layout)
+        let profileNavigationController = UINavigationController(rootViewController: userProfileController)
+        
+        profileNavigationController.tabBarItem.selectedImage = #imageLiteral(resourceName: "profile_selected")
+        profileNavigationController.tabBarItem.image = #imageLiteral(resourceName: "profile_unselected")
         
         tabBar.tintColor = .black
         
-        viewControllers = [navigationController, UIViewController()]
+        viewControllers = [homeNavigationController, profileNavigationController]
     }
 }

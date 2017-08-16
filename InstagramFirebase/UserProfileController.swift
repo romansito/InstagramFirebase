@@ -39,6 +39,9 @@ class UserProfileController: UICollectionViewController, UICollectionViewDelegat
             do {
                 try Auth.auth().signOut()
                 // we now need to present some kind of log in controller
+                let loginController = LoginController()
+                let navigationController = UINavigationController(rootViewController: loginController)
+                self.present(navigationController, animated: true, completion: nil)
                 
             } catch let signOutError {
                 print("Failed to signout:", signOutError)

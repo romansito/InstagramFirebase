@@ -49,6 +49,12 @@ class MainTabBarController: UITabBarController {
         //
         tabBar.tintColor = .black
         viewControllers = [homeNavigationController, searchNavigationController, plusNavigationController, likeNavigationController, userProfileNavigationController]
+        
+        //modify tabbar item insets
+        guard let items = tabBar.items else {return}
+        for item in items {
+            item.imageInsets = UIEdgeInsets(top: 4, left: 0, bottom: -4, right: 0)
+        }
     }
     
     fileprivate func templateNavigationController(unselectedImage: UIImage, selectedImage: UIImage, rootViewController: UIViewController = UIViewController()) -> UINavigationController {

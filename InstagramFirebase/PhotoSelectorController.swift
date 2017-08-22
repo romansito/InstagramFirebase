@@ -24,7 +24,7 @@ class PhotoSelectorController: UICollectionViewController, UICollectionViewDeleg
         setupNavigationButtons()
         
         collectionView?.register(PhotoSelectorCell.self, forCellWithReuseIdentifier: cellId)
-        collectionView?.register(UICollectionViewCell.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: headerId)
+        collectionView?.register(PhotoSelectorHeader.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: headerId)
         
         fetchPhotos()
     }
@@ -45,6 +45,10 @@ class PhotoSelectorController: UICollectionViewController, UICollectionViewDeleg
                 //get images
                 if let image = image {
                     self.images.append(image)
+                    
+                    if self.selectedImage == nil {
+                        self.selectedImage = image
+                    }
                 }
                 
                 if count == allPhotos.count - 1 {
@@ -64,8 +68,8 @@ class PhotoSelectorController: UICollectionViewController, UICollectionViewDeleg
     }
     
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: headerId, for: indexPath)
-        header.backgroundColor = .red
+        let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: headerId, for: indexPath) as! PhotoSelectorHeader
+        header.photoImageView.image = selectedImage
         return header
     }
     
@@ -90,6 +94,15 @@ class PhotoSelectorController: UICollectionViewController, UICollectionViewDeleg
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 1
     }
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        selectedImage = images[indexPath.item]
+        self.collectionView?.reloadData()
+        print(selectedImage)
+    }
+    
+    var selectedImage: UIImage?
+    
     
     override var prefersStatusBarHidden: Bool {
         return true

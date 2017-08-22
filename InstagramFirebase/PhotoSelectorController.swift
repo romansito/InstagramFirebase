@@ -9,6 +9,7 @@
 
 import UIKit
 import Photos
+import Crashlytics
 
 class PhotoSelectorController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
@@ -142,14 +143,15 @@ class PhotoSelectorController: UICollectionViewController, UICollectionViewDeleg
     }
     
     func gentleCancel() {
+        CLSLogv("DId click on gentleCancel button action: %@", getVaList([""]))
         dismiss(animated: true, completion: nil)
+        
     }
     
     func gentleNextButton() {
         let sharePhotoController = SharePhotoController()
         sharePhotoController.selectedImage = header?.photoImageView.image
         navigationController?.pushViewController(sharePhotoController, animated: true)
-        print("Handleing next")
     }
     
 }

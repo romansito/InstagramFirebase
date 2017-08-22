@@ -26,9 +26,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.backgroundColor = .white
         window?.rootViewController = MainTabBarController()
         
+        logCrashlyticsUser()
+        
         return true
     }
 
+    fileprivate func logCrashlyticsUser() {
+        let loginController = LoginController()
+        let userProfileController = UserProfileController()
+        Crashlytics.sharedInstance().setUserEmail(loginController.emailTextField.text)
+        Crashlytics.sharedInstance().setUserName(userProfileController.user?.username)
+    }
+    
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.

@@ -19,6 +19,11 @@ class UserProfilePhotoCell: UICollectionViewCell {
                     print("Error getting image for post from url", error)
                     return
                 }
+                // prevents from images to reload more than once.
+                if url.absoluteString != self.post?.imageUrl {
+                    return
+                }
+                
                 guard let imageData = data else {return}
                 let photoImage = UIImage(data: imageData)
                 DispatchQueue.main.async {

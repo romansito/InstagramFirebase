@@ -10,6 +10,8 @@
 		300B87371F4C9EF000CBA03D /* PhotoSelectorHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 300B87361F4C9EF000CBA03D /* PhotoSelectorHeader.swift */; };
 		300B87391F4CAE6300CBA03D /* SharePhotoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 300B87381F4CAE6300CBA03D /* SharePhotoController.swift */; };
 		300F555F1F54DB8800D5E333 /* CustomImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 300F555E1F54DB8800D5E333 /* CustomImageView.swift */; };
+		300F55621F54E43500D5E333 /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 300F55611F54E43500D5E333 /* HomeController.swift */; };
+		300F55641F54E71400D5E333 /* HomePostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 300F55631F54E71400D5E333 /* HomePostCell.swift */; };
 		301032B31F3272D8002A632A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 301032B21F3272D8002A632A /* AppDelegate.swift */; };
 		301032B51F3272D8002A632A /* SignUpController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 301032B41F3272D8002A632A /* SignUpController.swift */; };
 		301032B81F3272D8002A632A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 301032B61F3272D8002A632A /* Main.storyboard */; };
@@ -33,6 +35,8 @@
 		300B87361F4C9EF000CBA03D /* PhotoSelectorHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoSelectorHeader.swift; sourceTree = "<group>"; };
 		300B87381F4CAE6300CBA03D /* SharePhotoController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SharePhotoController.swift; sourceTree = "<group>"; };
 		300F555E1F54DB8800D5E333 /* CustomImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomImageView.swift; sourceTree = "<group>"; };
+		300F55611F54E43500D5E333 /* HomeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
+		300F55631F54E71400D5E333 /* HomePostCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomePostCell.swift; sourceTree = "<group>"; };
 		301032AF1F3272D8002A632A /* InstagramFirebase.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InstagramFirebase.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		301032B21F3272D8002A632A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		301032B41F3272D8002A632A /* SignUpController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpController.swift; sourceTree = "<group>"; };
@@ -66,6 +70,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		300F55601F54E42600D5E333 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				300F55611F54E43500D5E333 /* HomeController.swift */,
+				300F55631F54E71400D5E333 /* HomePostCell.swift */,
+			);
+			name = Home;
+			sourceTree = "<group>";
+		};
 		301032A61F3272D8002A632A = {
 			isa = PBXGroup;
 			children = (
@@ -87,8 +100,9 @@
 		301032B11F3272D8002A632A /* InstagramFirebase */ = {
 			isa = PBXGroup;
 			children = (
+				300F55601F54E42600D5E333 /* Home */,
 				30F65B261F50BF830023AAE5 /* Models */,
-				3087F5C51F48F27400896FB5 /* New Group */,
+				3087F5C51F48F27400896FB5 /* AddPhoto */,
 				3015785F1F4370AA00EF168D /* Login */,
 				305DD9361F3926E0004A98E3 /* UserProfile */,
 				30825F811F353AAB00D4D8AC /* Utilities */,
@@ -131,7 +145,7 @@
 			name = Utilities;
 			sourceTree = "<group>";
 		};
-		3087F5C51F48F27400896FB5 /* New Group */ = {
+		3087F5C51F48F27400896FB5 /* AddPhoto */ = {
 			isa = PBXGroup;
 			children = (
 				3087F5C61F48F29A00896FB5 /* PhotoSelectorController.swift */,
@@ -139,7 +153,7 @@
 				300B87361F4C9EF000CBA03D /* PhotoSelectorHeader.swift */,
 				300B87381F4CAE6300CBA03D /* SharePhotoController.swift */,
 			);
-			name = "New Group";
+			name = AddPhoto;
 			sourceTree = "<group>";
 		};
 		30F65B261F50BF830023AAE5 /* Models */ = {
@@ -328,8 +342,10 @@
 				305DD9351F391C11004A98E3 /* UserProfileController.swift in Sources */,
 				3087F5C71F48F29A00896FB5 /* PhotoSelectorController.swift in Sources */,
 				301032B31F3272D8002A632A /* AppDelegate.swift in Sources */,
+				300F55641F54E71400D5E333 /* HomePostCell.swift in Sources */,
 				300B87371F4C9EF000CBA03D /* PhotoSelectorHeader.swift in Sources */,
 				301578611F4370BA00EF168D /* LoginController.swift in Sources */,
+				300F55621F54E43500D5E333 /* HomeController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

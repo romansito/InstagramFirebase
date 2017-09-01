@@ -13,6 +13,7 @@
 		300F55621F54E43500D5E333 /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 300F55611F54E43500D5E333 /* HomeController.swift */; };
 		300F55641F54E71400D5E333 /* HomePostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 300F55631F54E71400D5E333 /* HomePostCell.swift */; };
 		300FFD801F5A0DED0024562A /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 300FFD7F1F5A0DED0024562A /* User.swift */; };
+		300FFD821F5A21430024562A /* FirebaseUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 300FFD811F5A21430024562A /* FirebaseUtils.swift */; };
 		301032B31F3272D8002A632A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 301032B21F3272D8002A632A /* AppDelegate.swift */; };
 		301032B51F3272D8002A632A /* SignUpController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 301032B41F3272D8002A632A /* SignUpController.swift */; };
 		301032B81F3272D8002A632A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 301032B61F3272D8002A632A /* Main.storyboard */; };
@@ -39,6 +40,7 @@
 		300F55611F54E43500D5E333 /* HomeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
 		300F55631F54E71400D5E333 /* HomePostCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomePostCell.swift; sourceTree = "<group>"; };
 		300FFD7F1F5A0DED0024562A /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		300FFD811F5A21430024562A /* FirebaseUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseUtils.swift; sourceTree = "<group>"; };
 		301032AF1F3272D8002A632A /* InstagramFirebase.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InstagramFirebase.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		301032B21F3272D8002A632A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		301032B41F3272D8002A632A /* SignUpController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpController.swift; sourceTree = "<group>"; };
@@ -143,6 +145,7 @@
 			children = (
 				30825F821F353AC500D4D8AC /* Extensions.swift */,
 				300F555E1F54DB8800D5E333 /* CustomImageView.swift */,
+				300FFD811F5A21430024562A /* FirebaseUtils.swift */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -333,6 +336,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				300FFD821F5A21430024562A /* FirebaseUtils.swift in Sources */,
 				300B87391F4CAE6300CBA03D /* SharePhotoController.swift in Sources */,
 				301032B51F3272D8002A632A /* SignUpController.swift in Sources */,
 				3087F5C91F4903D800896FB5 /* PhotoSelectorCell.swift in Sources */,

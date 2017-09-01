@@ -37,8 +37,10 @@ class UserProfileController: UICollectionViewController, UICollectionViewDelegat
 
         ref.queryOrdered(byChild: "creationDate").observe(.childAdded, with: { (snapshot) in
             guard let dictionary = snapshot.value as? [String: Any] else {return}
-            let post = Post(dictionary: dictionary)
-            self.posts.append(post)
+            guard let user = self.user else { return }
+            let post = Post(user: user, dictionary: dictionary)
+//            self.posts.append(post)
+            self.posts.insert(post, at: 0)
             self.collectionView?.reloadData()
         }) { (error) in
             print("failed to fetch ordered posts:", error)
@@ -55,7 +57,8 @@ class UserProfileController: UICollectionViewController, UICollectionViewDelegat
             dictionaries.forEach({ (key, value) in
                 guard let dictionary = value as? [String: Any] else { return }
                 
-                let post = Post(dictionary: dictionary)
+                guard let user = self.user else { return }
+                let post = Post(user: user, dictionary: dictionary)
                 self.posts.append(post)
             })
             self.collectionView?.reloadData()
@@ -145,14 +148,3 @@ class UserProfileController: UICollectionViewController, UICollectionViewDelegat
     }
     
 }
-
-struct User {
-    let username: String
-    let profileImageUrl: String
-    
-    init(dictionary: [String: Any]) {
-        self.username = dictionary["username"] as? String ?? ""
-        self.profileImageUrl = dictionary["profileImageUrl"]  as? String ?? ""
-    }
-}
-

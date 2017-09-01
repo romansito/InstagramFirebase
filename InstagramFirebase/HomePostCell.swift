@@ -14,14 +14,32 @@ class HomePostCell: UICollectionViewCell {
         didSet {
             guard let postImageUrl = post?.imageUrl else { return }
             photoImageView.loadImage(urlString: postImageUrl)
+            self.usernameLabel.text = post?.user.username
+            
+            guard let userImageUrl = post?.user.profileImageUrl else { return }
+            userProfileImageView.loadImage(urlString: userImageUrl)
+            
+            setupAttributedCaption()
         }
+    }
+    
+    fileprivate func setupAttributedCaption() {
+        
+        guard let post = self.post else {return}
+        
+        let attributedText = NSMutableAttributedString(string: post.user
+            .username, attributes: [NSFontAttributeName: UIFont.boldSystemFont(ofSize: 14)])
+        attributedText.append(NSAttributedString(string: " \(post.caption)", attributes: [NSFontAttributeName:
+            UIFont.systemFont(ofSize: 14)]))
+        attributedText.append(NSAttributedString(string: "\n\n", attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 4)]))
+        attributedText.append(NSAttributedString(string: "1 week ago", attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 12), NSForegroundColorAttributeName: UIColor.gray]))
+        captionLabel.attributedText = attributedText
     }
     
     let userProfileImageView: CustomImageView = {
         let imageView = CustomImageView()
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
-        imageView.backgroundColor = .red
 
         return imageView
     }()
@@ -37,7 +55,6 @@ class HomePostCell: UICollectionViewCell {
         let button = UIButton(type: .system)
         button.setTitle("•••", for: .normal)
         button.setTitleColor(.black, for: .normal)
-        button.backgroundColor = .red
         button.addTarget(self, action: Selector(("optionsButtonSelected")), for: .touchUpInside)
         return button
     }()
@@ -68,8 +85,7 @@ class HomePostCell: UICollectionViewCell {
 
     let captionLabel : UILabel = {
         let label = UILabel()
-        label.text = "something"
-        label.backgroundColor = .yellow
+        label.numberOfLines = 0
         return label
     }()
     
@@ -87,7 +103,6 @@ class HomePostCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = .lightGray
         
         addSubview(userProfileImageView)
         addSubview(usernameLabel)
@@ -107,7 +122,7 @@ class HomePostCell: UICollectionViewCell {
         setupActionButtons()
         
         addSubview(captionLabel)
-        captionLabel.anchor(top: likeButton.bottomAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
+        captionLabel.anchor(top: likeButton.bottomAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, paddingTop: 0, paddingLeft: 8 , paddingBottom: 0, paddingRight: 8, width: 0, height: 0)
     }
     
     fileprivate func setupActionButtons() {
